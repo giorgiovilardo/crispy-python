@@ -293,7 +293,11 @@ Type `int()` for integers, arbitrarily big. I think the constructor also accepts
 # 2349324243825797946
 
 # usual suspects here, most important division and integer division
-...
+30 / 2
+# 15.0 - a float
+
+30 // 2
+# 15 - an int
 ```
 
 Type `float()` for ... floats. If a number has a dot, it's a float literal. IEEE classic float implementation, bad precision. Use `Decimal` in the standard library if you want arbitrary precision. `float()` with "NaN" or "inf"/"-inf" values makes NaN and the signed infinites, useful if you need to accumulate a counter over a loop and there are signed numbers as the infinites are greather than/lesser than every other number.
