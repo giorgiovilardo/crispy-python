@@ -221,9 +221,9 @@ Imports are absolute in the package structure if you did everything correctly, s
 
 `from app.handlers.user import add_user`.
 
-#### `__init.py__`
+#### `__init__.py`
 
-Every python package (a directory basically) **must** have an `__init.py__` file inside in order to be recognized as a package. This is a rule. Just do it. Quirks. Don't write anything inside it. It's usually used to fake visibility so people should just import stuff declared there in other packages, but no one does it anymore. Curse of popularity.
+Every python package (a directory basically) **must** have an `__init__.py` file inside in order to be recognized as a package. This is a rule. Just do it. Quirks. Don't write anything inside it. It's usually used to fake visibility so people should just import stuff declared there in other packages, but no one does it anymore. Curse of popularity.
 
 #### Naming/stylistic conventions
 
