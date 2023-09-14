@@ -660,102 +660,101 @@ greet("Giorgio")
 
 Arguments are usually positional, but can also be called via keyword, out of order:
 
-```
+```py
 def greet_with_age(name, age):
     return f"Hello, {name}, you are {age} years old"
 
-In [ ]: greet_with_age(age=22, name="Giorgio")
-Out[ ]: 'Hello, Giorgio, you are 22 years old'
+greet_with_age(age=22, name="Giorgio")
+# 'Hello, Giorgio, you are 22 years old'
 ```
   
 Arguments can have defaults:
 
-```
+```py
 def better_greet(name="person"):
     return f"Hello, {name}"
 
-In [ ]: better_greet()
-Out[ ]: 'Hello, person'
+better_greet()
+# 'Hello, person'
 ```
 
 You can have variadic functions by adding `*args` to the signature, and those arguments will be packed in a list. `*` is a special syntax that says "absorb every positional arguments after the last positional argument in the signature"
 
-```
+```py
 def multi_greeter(*args):
      return f"Hello, {', '.join(args)}"
 
-In [ ]: multi_greeter("Giorgio")
-Out[ ]: 'Hello, Giorgio'
+multi_greeter("Giorgio")
+# 'Hello, Giorgio'
 
-In [ ]: multi_greeter("Giorgio", "Egle", "Giovanna")
-Out[ ]: 'Hello, Giorgio, Egle, Giovanna'
+multi_greeter("Giorgio", "Egle", "Giovanna")
+# 'Hello, Giorgio, Egle, Giovanna'
 ```
 
 A best practice, not really super common as of now, is to have keyword only arguments in functions. Imagine the `*` absorbing every positional argument and binding them to nothing:
 
-```
+```py
 def kw_greeter(*, name, age):
      return f"Hello, {name}, you are {age} years old"
 
-In [ ]: kw_greeter("Giorgio", 22)
-...omitted stack trace
-TypeError: kw_greeter() takes 0 positional arguments but 2 were given
+kw_greeter("Giorgio", 22)
+# TypeError: kw_greeter() takes 0 positional arguments but 2 were given - nice, more safety, more help from autocomplete, more chances to see if we're doing the wrong thing contextually
 
-In [ ]: kw_greeter(name="Giorgio", age=22)
-Out[ ]: 'Hello, Giorgio, you are 22 years old'
+kw_greeter(name="Giorgio", age=22)
+# 'Hello, Giorgio, you are 22 years old'
 ```
 
 You can also pass variadic keyword arguments with the `**kwargs` special syntax at the end of a function. The variadic arguments will be unpacked inside a dictionary. This is a super useful technique for libraries, specially ORMs (see django orm):
 
-```
+```py
 def kwargs_greeter(**kwargs):
      print(kwargs)
      name = kwargs["name"]
      age = kwargs["age"]
+     # rest of the kwargs are not handled, but program won't crash if it has them
      return f"Hello, {name}, you are {age} years old"
 
 
-In [ ]: kwargs_greeter(name="Giorgio", age=22, fav_food="Pasta", profile_pic=None)
-
-{'name': 'Giorgio', 'age': 22, 'fav_food': 'Pasta', 'profile_pic': None}
-
-Out[ ]: 'Hello, Giorgio, you are 22 years old'
+kwargs_greeter(name="Giorgio", age=22, fav_food="Pasta", profile_pic=None)
+# {'name': 'Giorgio', 'age': 22, 'fav_food': 'Pasta', 'profile_pic': None} - the print
+# 'Hello, Giorgio, you are 22 years old'
 ```
 
 #### Anonymous functions
 
 Don't use them if not in very very specific situations, like passing a sorting function to `.sort()` or to the `map()` builtin. Lambdas in py are restricted to single statement and the functional style is, in general, frowned upon.
 
-```
+```py
 sum2 = lambda a, b: a + b
 
-In [ ]: sum2(3,4)
-Out[ ]: 7
+sum2(3,4)
+# 7
 
-In [ ]: sorted(["11111", "22", "3"], key=lambda x: len(x))
-Out[ ]: ['3', '22', '11111']
+# sorted accepts a `key` kwarg with the data to be used to sort on, in this case length of the string
+sorted(["11111", "22", "3"], key=lambda x: len(x))
+# ['3', '22', '11111']
 ```
 
 #### Footguns
 
 Never never never use mutable things (lists, dicts, etc.) as default fn arguments  or nasty things will happen:
 
-```
+```py
 def bugged(a=[]):
      a.append(1)
      return a
 
-In [ ]: bugged()
-Out[ ]: [1]
+bugged()
+# [1]
 
-In [ ]: bugged()
-Out[ ]: [1, 1]
+bugged()
+# [1, 1]
 
-In [ ]: bugged()
-Out[ ]: [1, 1, 1]
+bugged()
+# [1, 1, 1]
 
-In [ ]: bugged()
-Out[ ]: [1, 1, 1, 1]
+bugged()
+# [1, 1, 1, 1]
 ```
 
 ### Classes
