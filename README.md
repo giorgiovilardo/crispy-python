@@ -400,33 +400,27 @@ sorted(["cap2_1", "cap1", "cap2"])
 
 ### Conditionals
 
-Your basic conditional keyword is `if..elif..else`. Really not that much to say other than it's kinda in style to use falsy values as comparators rather than explicit checks if the type has them (i.e. a common idiom is `if not list` to check if a list is empty)
+Your basic conditional keyword is `if..elif..else`. Really not that much to say other than it's idiomatic to rely on falsy values as conditions rather than explicit checks (i.e. a common idiom is `if not list` to check if a list is empty, not `if len(list) == 0`)
 
-```
-In [ ]: stock_list = []
-
-In [ ]: debt_list = [100_000]
-
-In [ ]: bank_account = 0
-
+```py
+stock_list = []
 if not stock_list:
      print("you're poor")
+# you're poor
 
-you're poor
-
+debt_list = [100_000]  # you can use _ as a separator for integers
 if debt_list:
      print("you're in debt")
+# you're in debt
 
-you're in debt
-
+bank_account = 0
 if bank_account > 100_000:
      print("ok")
  elif bank_account > 50_000:
      print("meh")
  else:
      print(":(")
-
-:(
+# :(
 ```
 
 #### Ternaries
