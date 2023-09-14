@@ -359,7 +359,7 @@ Usually enabled by implementing dunders.
 
 #### Less common operators
 
-- `|` set/dict union
+- `|` set/dict union, also used in type annotations to create something similar to a tagged union from functional languages
 - `*name` the operator is `*`, "absorbs" stuff into a list that will be bound to `name`, used in destructuring and stuff like that
 - `**dict` splats the dict, where possible
 
