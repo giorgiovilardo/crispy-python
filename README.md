@@ -367,36 +367,35 @@ Usually enabled by implementing dunders.
 
 Before going with other primitives, be aware that python has a lot of builtins functions that can be invoked from everywhere (yay, PHP!). You can list them by doing
 
-```
-In [ ]: import builtins
-
-In [ ]: dir(builtins)
-...omitted
+```py
+import builtins
+dir(builtins)
+# ...omitted
 ```
 
 The most useful are `isinstance()` to check type membership, `type()` to know a type of something (don't use it to compare, use isinstance for that), `len()` to see the length of things, `any()` and `all()` on iterables to know if at least one or all the values are truthy, `sum()` and `sorted()` are pretty intuitive (sorted returns a copy, it's not in place). I will be using some datatypes I'll explain later.
 
-```
-In [ ]: isinstance("", str)
-Out[ ]: True
+```py
+isinstance("", str)
+# True
 
-In [ ]: type(9)
-Out[ ]: int
+type(9)
+# int
 
-In [ ]: len("ciaociao")
-Out[ ]: 8
+len("ciaociao")
+# 8
 
-In [ ]: any(item > 1 for item in [-1,2,3])
-Out[ ]: True
+any(item > 1 for item in [-1,2,3])
+# True
 
-In [ ]: all(item > 1 for item in [-1,2,3])
-Out[ ]: False
+all(item > 1 for item in [-1,2,3])
+# False
 
-In [ ]: sum([1,2,3])
-Out[ ]: 6
+sum([1,2,3])
+# 6
 
-In [ ]: sorted(["cap2_1", "cap1", "cap2"])
-Out[ ]: ['cap1', 'cap2', 'cap2_1']
+sorted(["cap2_1", "cap1", "cap2"])
+# ['cap1', 'cap2', 'cap2_1']
 ```
 
 ### Conditionals
