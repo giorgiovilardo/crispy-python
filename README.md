@@ -480,58 +480,58 @@ Try to use comprehensions (we will see them later) instead of `for`s and `while`
 
 List literals are declared with `[]` and can contain heterogenous types. Some example of classical operations on lists:
 
-```
-In [ ]: names = ["Giorgio", "Egle", "Giovanna"]
+```py
+names = ["Giorgio", "Egle", "Giovanna"]
 
-In [ ]: names.append(3)
+names.append(3)
+names
+# ['Giorgio', 'Egle', 'Giovanna', 3]
 
-In [ ]: names
-Out[ ]: ['Giorgio', 'Egle', 'Giovanna', 3]
+names.pop()
+# 3
 
-In [ ]: names.pop()
-Out[ ]: 3
+names[0]  # indexed access
+# 'Giorgio'
 
-In [ ]: names[0]  # index access
-Out[ ]: 'Giorgio'
+names[0:1]  # slice syntax, from:to. to is exclusive.
+# ['Giorgio']
 
-In [ ]: names[0:1]  # slice syntax, from:to. to is exclusive.
-Out[ ]: ['Giorgio']
+names[1:]  # From 1 until the end
+# ['Egle', 'Giovanna']
 
-In [113]: names[1:]  # From 1 until the end
-Out[113]: ['Egle', 'Giovanna']
+names[:2]  # From 0 until 1
+# ['Giorgio', 'Egle']
 
-In [115]: names[:2]  # From 0 until 1
-Out[115]: ['Giorgio', 'Egle']
+names[::-1]  # Creates a new list by walking the current list, but specifies the step of the walk, so this actually reverses a list
+# ['Giovanna', 'Egle', 'Giorgio']
 
-In [116]: names[::-1]  # No indexes, but specifies the step, so this actually reverses a list
-Out[116]: ['Giovanna', 'Egle', 'Giorgio']
+names[-1]  # Can access from the back with negative indexes
+# 'Giovanna'
 
-In [117]: names[-1]  # Can access from the back with negative indexes
-Out[117]: 'Giovanna'
+for name in names:  # iterates over a list
+    print(name)
+    
+# Giorgio
+# Egle
+# Giovanna
 
-In [118]: for name in names:  # iterates over a list
-     ...:     print(name)
-     ...:
-Giorgio
-Egle
-Giovanna
 # Use `for index, item in enumerate(items):` if you need the index and the item
 
-In [ ]: first_name, *rest = names  # List destructuring
+first_name, *rest = names  # List destructuring
 
-In [ ]: print(f"{first_name=}\n{rest=}")
-first_name='Giorgio'
-rest=['Egle', 'Giovanna']
+print(f"{first_name=}\n{rest=}")
+# first_name='Giorgio'
+# rest=['Egle', 'Giovanna']
 
-In [ ]: unsorted_nums = [7, 1, 33, 55, -8]
+unsorted_nums = [7, 1, 33, 55, -8]
 
-In [ ]: sorted(unsorted_nums)  # returns a copy
-Out[ ]: [-8, 1, 7, 33, 55]
+sorted(unsorted_nums)  # returns a copy
+# [-8, 1, 7, 33, 55]
 
-In [ ]: unsorted_nums.sort()  # in place, no return
+unsorted_nums.sort()  # in place, returns None
 
-In [ ]: unsorted_nums
-Out[ ]: [-8, 1, 7, 33, 55]
+unsorted_nums
+# [-8, 1, 7, 33, 55]
 ```
 
 #### List comprehensions
