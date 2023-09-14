@@ -760,7 +760,7 @@ bugged()
 ### Classes
 Classes are defined by the `class` keyword. Python has multiple inheritance: don't use it unless you have a good reason. It's strange and involves things with bad names like `MRO - Module Resolution Order`.
 
-```
+```py
 class Person:
     originating_planet = "earth"  # this is a class variable...they're not used that much, so don't mind them, just don't be surprised when you see some frameworks (django specially) inheriting and setting those outside the constructor. They exist. Mainly used to avoid having big constructors with default parameters.
     
@@ -776,13 +776,17 @@ class Person:
         return f"<Person {self.name=}>"
 
     def __repr__(self):
-        # cool REPL repr-esentation
+        # enables cool REPL repr-esentation
         return self.__str__()
 
     def is_adult(self):
         return self.age >= 18
 
-    @classmethod  # takes cls as first arg, basically "things that in KT go in the companion object"
+    @property  # our first decorator - @property on a method makes it behave like a field and not a method (you can omit ())
+    def is_giorgio(self):
+        return self.name == "Giorgio"
+
+    @classmethod  # takes cls as first arg, basically "things that in kotlin/scala go in the companion object"
     def from_string(cls, person_string):
         """
         Constructs a person from a "name, age" string.
@@ -796,35 +800,35 @@ class Person:
         name, age = person_string.split(",")
         return cls(name, int(age))
 
-
-person = Person("Giorgio", 39)  # no need for new
+# no need for new
+person = Person("Giorgio", 39)
 
 # getters and setters are not in python style.
-In [ ]: person.name
-Out[ ]: 'Giorgio'
+person.name
+# 'Giorgio'
 
-In [ ]: person.name = "Girgio"
+person.name = "Girgio"
+person.name
+# 'Girgio'
 
-In [ ]: person.name
-Out[ ]: 'Girgio'
+person_2 = Person.from_string("Marco, 33")
 
-In [ ]: person
-Out[ ]: <Person self.name='Giorgio'>
+# see our cool repl representaiton enabled by __repr__
+person_2
+# <Person self.name='Marco'>
 
-In [ ]: person_2 = Person.from_string("Marco, 33")
+person_2.is_adult()
+# True
 
-In [ ]: person_2
-Out[ ]: <Person self.name='Marco'>
-
-In [ ]: person_2.is_adult()
-Out[ ]: True
+person_2.is_giorgio
+# False
 ```
 
 ### Error handling
 
 Python is exception based, not checked, and the basic construct to handle errors is by wrapping potential excepting functions with `try...except...finally`. All python exceptions inherit from `Exception` and there is a wealth of builtin exceptions. `except` can catch specific exceptions and it's good practice to do so rather than be naked.
 
-```
+```py
 ages = {"Giorgio": 39, "Egle": 2, "Giovanna": 41}
 
 def fetch_age(name):  
@@ -835,14 +839,14 @@ def fetch_age(name):
     finally:  
         print("I will be executed anyway")
 
-In [ ]: fetch_age("Marco")
-I will be executed anyway
-Out[ ]: 'Unknown name'
+fetch_age("Marco")
+# I will be executed anyway
+# 'Unknown name'
 ```
 
 You can throw via the `raise` keyword, and can also create custom exceptions:
 
-```
+```py
 class CustomException(Exception):
     def __init__(self, msg):
         self.msg = msg
@@ -855,11 +859,10 @@ try:
 except CustomException as e:
     print(e)
 
-I'm broken!
+# I'm broken!
 ```
 
 Handled exception can be put in scope with the `as` keyword as shown.
-
 
 ### "advanced" stuff
 
