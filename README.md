@@ -538,48 +538,18 @@ unsorted_nums
 
 Very important. Python don't use map/filter/reduce and LINQ-like functional methods, we just use listcomps.
 
-```
-In [ ]: nums = [1, 2, 3, 4]
+```py
+nums = [1, 2, 3, 4]
 
-In [ ]: [n * 2 for n in nums]
-Out[ ]: [2, 4, 6, 8]
+[n * 2 for n in nums]
+# [2, 4, 6, 8]
 
-In [ ]: [n * 2 for n in nums if n % 2 == 0]
-Out[ ]: [4, 8]
+[n * 2 for n in nums if n % 2 == 0]
+# [4, 8]
 
-In [ ]: ["FizzBuzz" if n % 15 == 0 else "Buzz" if n % 5 == 0 else "Fizz" if n % 3 == 0 else n for n in range(1, 31)]
-# range(start, end_exclusive, step) generates a list of numbers
-Out[ ]:
-[1,
- 2,
- 'Fizz',
- 4,
- 'Buzz',
- 'Fizz',
- 7,
- 8,
- 'Fizz',
- 'Buzz',
- 11,
- 'Fizz',
- 13,
- 14,
- 'FizzBuzz',
- 16,
- 17,
- 'Fizz',
- 19,
- 'Buzz',
- 'Fizz',
- 22,
- 23,
- 'Fizz',
- 'Buzz',
- 26,
- 'Fizz',
- 28,
- 29,
- 'FizzBuzz']
+["FizzBuzz" if n % 15 == 0 else "Buzz" if n % 5 == 0 else "Fizz" if n % 3 == 0 else n for n in range(1, 31)]  # look ma, unreadable
+
+# [1, 2, 'Fizz', 4, 'Buzz', 'Fizz', 7, 8, 'Fizz', 'Buzz', 11, Fizz', 13, 14, 'FizzBuzz', 16, 17, 'Fizz', 19, 'Buzz', 'Fizz', 22, 23, 'Fizz', 'Buzz', 26, 'Fizz', 28, 29, 'FizzBuzz']
 ```
 
 You can use `()` instead of `[]` so they become generators, basically lazy lists. It is possible to chain `for` expressions but it's super unreadable, don't do that. The comprehension syntax is used for other things so internalize it well.
@@ -592,110 +562,100 @@ Basically immutable lists. Use the `()` literal syntax, or the `tuple()` constru
 
 Use the `set()` constructor or the `{}` literal syntax. Unordered. 
 
-```
-In [ ]: names_set = {"Giorgio", "Giorgio", "Egle", "Giovanna"}
+```py
+names_set = {"Giorgio", "Giorgio", "Egle", "Giovanna"}
 
-In [ ]: names_set
-Out[ ]: {'Egle', 'Giorgio', 'Giovanna'}
+names_set
+# {'Egle', 'Giorgio', 'Giovanna'}
 
-In [ ]: names_set.add("Marco")
+names_set.add("Marco")
 
-In [ ]: names_set
-Out[ ]: {'Egle', 'Giorgio', 'Giovanna', 'Marco'}
+names_set
+# {'Egle', 'Giorgio', 'Giovanna', 'Marco'}
 
-In [ ]: names_set.isdisjoint({"Giuseppe"})
-Out[ ]: True
+names_set.isdisjoint({"Giuseppe"})
+# True
 
-In [ ]: names_set.issuperset({"Egle"})
-Out[ ]: True
+names_set.issuperset({"Egle"})
+# True
 
-In [ ]: names_set.issubset({"Egle"})
-Out[ ]: False
+names_set.issubset({"Egle"})
+# False
 
-In [ ]: {"Egle"} | {"Giorgio"}  # union
-Out[ ]: {'Egle', 'Giorgio'}
+{"Egle"} | {"Giorgio"}  # union
+# {'Egle', 'Giorgio'}
 
-In [ ]: {"Egle"} == {"Egle"}  # equality
-Out[ ]: True
+{"Egle"} == {"Egle"}  # equality
+# True
 
-In [ ]: {num for num in [1, 1, 1, 2, 2, 3]}  # set comprehension
-Out[ ]: {1, 2, 3}
+{num for num in [1, 1, 1, 2, 2, 3]}  # set comprehension
+# {1, 2, 3}
 ```
 
 ### Dicts
 
-Use the `dict()` constructor or the `{k: v}` literal syntax. Insertion ordered.
-```
-In [ ]: ages = {"Giorgio": 39, "Egle": 2, "Giovanna": 41}
+Use the `dict()` constructor or the `{k: v}` literal syntax. They have guaranteed insertion order, so iteration will start from the earliest inserted one.
 
-In [ ]: [key for key in ages.keys()]
-Out[ ]: ['Giorgio', 'Egle', 'Giovanna']
+```py
+ages = {"Giorgio": 39, "Egle": 2, "Giovanna": 41}
 
-In [ ]: [value for value in ages.values()]
-Out[ ]: [39, 2, 41]
+[key for key in ages.keys()]
+# ['Giorgio', 'Egle', 'Giovanna']
 
-In [ ]: [mmm for mmm in ages]  # common error: iteration over a dict yield keys, not k:v pairs
-Out[ ]: ['Giorgio', 'Egle', 'Giovanna']
+[value for value in ages.values()]
+# [39, 2, 41]
 
-In [ ]: [f"{name} has {age} years" for name, age in ages.items()]  # .items() return tuples, which gets destructured into the variables of the loop
-Out[ ]: ['Giorgio has 39 years', 'Egle has 2 years', 'Giovanna has 41 years']
+[mmm for mmm in ages]  # common error: iteration over a dict yield keys, not k:v pairs
+# ['Giorgio', 'Egle', 'Giovanna']
 
-In [ ]: ages["Giorgio"]
-Out[ ]: 39
+[f"{name} has {age} years" for name, age in ages.items()]  # .items() return tuples, which gets destructured into the variables of the loop
+# ['Giorgio has 39 years', 'Egle has 2 years', 'Giovanna has 41 years']
 
-In [ ]: ages.get("Giorgio")
-Out[ ]: 39
+ages["Giorgio"]
+# 39
 
-In [ ]: ages["Carlo"]
-KeyError: 'Carlo'
+ages.get("Giorgio")
+# 39
 
-In [ ]: print(ages.get("Carlo"))  # print to see the None
-None
+ages["Carlo"]
+# KeyError: 'Carlo' - ouch, an exceptions
 
-In [ ]: ages.get("Carlo", 33)
-Out[ ]: 33
+print(ages.get("Carlo"))  # print to see the None - .get() does not excepts and emit a default value
+# None
 
-In [ ]: ages["Carlo"] = 33
+ages.get("Carlo", 33)  # which can be specified
+# 33
 
-In [ ]: ages
-Out[ ]: {'Giorgio': 39, 'Egle': 2, 'Giovanna': 41, 'Carlo': 33}
+ages["Carlo"] = 33  # update in place
 
-In [ ]: ages.update({"Marco": 22})  # update in place
+ages
+# {'Giorgio': 39, 'Egle': 2, 'Giovanna': 41, 'Carlo': 33}
 
-In [ ]: ages
-Out[ ]: {'Giorgio': 39, 'Egle': 2, 'Giovanna': 41, 'Carlo': 33, 'Marco': 22}
+ages.update({"Marco": 22})  # update in place
 
-In [ ]: {"Roberto": 70} | ages  # update and return copy
-Out[ ]:
-{'Roberto': 70,
- 'Giorgio': 39,
- 'Egle': 2,
- 'Giovanna': 41,
- 'Carlo': 33,
- 'Marco': 22}
+ages
+# {'Giorgio': 39, 'Egle': 2, 'Giovanna': 41, 'Carlo': 33, 'Marco': 22}
 
-In [ ]: {"Roberto": 70, **ages}  # yet another syntax
-Out[ ]:
-{'Roberto': 70,
- 'Giorgio': 39,
- 'Egle': 2,
- 'Giovanna': 41,
- 'Carlo': 33,
- 'Marco': 22}
+{"Roberto": 70} | ages  # unions of two sets
+# {'Roberto': 70, 'Giorgio': 39, 'Egle': 2, 'Giovanna': 41, 'Carlo': 33, 'Marco': 22}
+
+{"Roberto": 70, **ages}  # yet another syntax
+# {'Roberto': 70, 'Giorgio': 39, 'Egle': 2, 'Giovanna': 41, 'Carlo': 33, 'Marco': 22}
  
-In [ ]: {name: age for name, age in zip(["Giorgio", "Egle"], [39, 2])}  # dict comprehension. also zip(), that mixes lists into tuples. works with other iterable also.
-Out[ ]: {'Giorgio': 39, 'Egle': 2}
+# dict comprehension. also notice zip(), a builtin that mixes lists into tuples. works with other iterable also.
+{name: age for name, age in zip(["Giorgio", "Egle"], [39, 2])}
+# {'Giorgio': 39, 'Egle': 2}
 ```
 ### Functions
 
 Functions are declared with the `def` keyword:
 
-```
+```py
 def greet(name):
     return f"Hello, {name}"
 
-In [ ]: greet("Giorgio")
-Out[ ]: 'Hello, Giorgio'
+greet("Giorgio")
+# 'Hello, Giorgio'
 ```
 
 Arguments are usually positional, but can also be called via keyword, out of order:
