@@ -436,51 +436,45 @@ return "Go for a walk" if weather == "sunny" else "Stay inside"
 
 Two basic constructs: `for` and `while`. `for` walks over iterables (no counter management in the loop declaration), `while` needs counter management.
 
-```
-In [ ]: for number in range(0, 4):
-   ...:     print(number)
-   ...:
-0
-1
-2
-3
+```py
+for number in range(0, 4):  # range produces an iterable that goes from first argument inclusive to last argument exclusive
+     print(number)
+# 0
+# 1
+# 2
+# 3
 
-In [ ]: while True:
-   ...:     print("I would be an infinite loop but...")
-   ...:     break  # break interrupts the loop
-   ...:
-I would be an infinite loop but...
+while True:
+     print("I would be an infinite loop but...")
+     break  # break interrupts the loop
+# I would be an infinite loop but...
 
-In [ ]: counter = 0
+counter = 0
+while counter < 3:
+    print(counter)
+    counter += 1
+# 0
+# 1
+# 2
 
-In [ ]: while counter < 3:
-   ...:     print(counter)
-   ...:     counter += 1
-   ...:
-0
-1
-2
+for item in [1, 2, 3, 4, 5]:
+    print(item ** 2)
+# 1
+# 4
+# 9
+# 16
+# 25
 
-In [ ]: for item in [1, 2, 3, 4, 5]:
-   ...:     print(item ** 2)
-   ...:
-1
-4
-9
-16
-25
-
-In [ ]: for item in [1, 2, 3, 4, 5]:
-   ...:     if item % 2 == 0:
-   ...:         continue  # stop and go to the next iteration
-   ...:     print(item ** 2)
-   ...:
-1
-9
-25
+for item in [1, 2, 3, 4, 5]:
+    if item % 2 == 0:
+        continue  # stop and go to the next iteration
+    print(item ** 2)
+# 1
+# 9
+# 25
 ```
 
-Try to use comprehensions instead of `for`s.
+Try to use comprehensions (we will see them later) instead of `for`s and `while`s.
 
 ### Lists
 
