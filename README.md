@@ -1,4 +1,4 @@
-# Giorgio's guide to Python
+# Crispy Python
 
 A futile attempt to stop the takeover of the snakes by illuminating people on the dangers of them.
 
